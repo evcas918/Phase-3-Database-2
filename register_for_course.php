@@ -70,6 +70,65 @@ if (isset($data['student_id']) && isset($data['course_id']) && isset($data['sect
         if ($count_row['student_count'] >= 15) {
             throw new Exception("Course section is full.");
         }
+
+        // Check if student is already registered for another section of this course
+        $same_course_sql = "SELECT * FROM take 
+                            WHERE student_id = ? AND course_id = ? 
+                            AND semester = ? AND year = ? 
+                            AND section_id != ?";
+        $same_course_stmt = mysqli_prepare($conn, $same_course_sql);
+        mysqli_stmt_bind_param($same_course_stmt, "sssss", $student_id, $course_id, $semester, $year, $section_id);
+        mysqli_stmt_execute($same_course_stmt);
+        $same_course_result = mysqli_stmt_get_result($same_course_stmt);
+
+        if (mysqli_num_rows($same_course_result) > 0) {
+            throw new Exception("You are already registered for a different section of this course.");
+        }
+
+        // Check for time conflicts
+        // First, get the time slot for the course being registered
+        $time_sql = "SELECT ts.* FROM section s
+                    JOIN time_slot ts ON s.time_slot_id = ts.time_slot_id
+                    WHERE s.course_id = ? AND s.section_id = ? AND s.semester = ? AND s.year = ?";
+        $time_stmt = mysqli_prepare($conn, $time_sql);
+        mysqli_stmt_bind_param($time_stmt, "sssi", $course_id, $section_id, $semester, $year);
+        mysqli_stmt_execute($time_stmt);
+        $time_result = mysqli_stmt_get_result($time_stmt);
+
+        if (mysqli_num_rows($time_result) > 0) {
+            $time_slot = mysqli_fetch_assoc($time_result);
+
+            // Check conflicts with existing courses
+            $conflict_sql = "SELECT t.course_id, t.section_id, c.course_name, ts.day, ts.start_time, ts.end_time
+                            FROM take t
+                            JOIN section s ON t.course_id = s.course_id
+                                            AND t.section_id = s.section_id
+                                            AND t.semester = s.semester
+                                            AND t.year = s.year
+                            JOIN time_slot ts ON s.time_slot_id = ts.time_slot_id
+                            JOIN course c ON t.course_id = c.course_id
+                            WHERE t.student_id = ?
+                            AND t.semester = ? AND t.year = ?
+                            AND ts.day = ?
+                            AND ((ts.start_time <= ? AND ts.end_time > ?)
+                                 OR (ts.start_time < ? AND ts.end_time >= ?)
+                                OR (ts.start_time >= ? AND ts.end_time <= ?))";
+
+            $conflict_stmt = mysqli_prepare($conn, $conflict_sql);
+            mysqli_stmt_bind_param($conflict_stmt, "ssssssssss", 
+                                    $student_id, $semester, $year, 
+                                    $time_slot['day'], 
+                                    $time_slot['start_time'], $time_slot['start_time'],
+                                    $time_slot['end_time'], $time_slot['end_time'],
+                                    $time_slot['start_time'], $time_slot['end_time']);
+            mysqli_stmt_execute($conflict_stmt);
+            $conflict_result = mysqli_stmt_get_result($conflict_stmt);
+
+            if (mysqli_num_rows($conflict_result) > 0) {
+                $conflict_course = mysqli_fetch_assoc($conflict_result);
+                throw new Exception("Time conflict with " . $conflict_course['course_id'] . " (" . $conflict_course['course_name'] . ")");
+            }
+        }
         
         // Register student for the course
         $register_sql = "INSERT INTO take (student_id, course_id, section_id, semester, year) VALUES (?, ?, ?, ?, ?)";

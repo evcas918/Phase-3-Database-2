@@ -48,6 +48,11 @@
         <activity
             android:name=".CourseRegistrationActivity"
             android:exported="false" />
+        
+        <!-- Course History Activity -->
+        <activity
+            android:name=".CourseHistoryActivity"
+            android:exported="false" />
 
     </application>
 
