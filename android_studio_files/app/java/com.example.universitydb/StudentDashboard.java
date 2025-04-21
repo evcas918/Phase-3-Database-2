@@ -84,13 +84,10 @@ public class StudentDashboard extends AppCompatActivity {
         btnRegisterCourses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // For now, just show a toast
-                Toast.makeText(StudentDashboard.this, "Register for Courses feature coming soon", Toast.LENGTH_SHORT).show();
-
-                // TODO: Implement this in a future iteration
-                // Intent intent = new Intent(StudentDashboard.this, CourseRegistration.class);
-                // intent.putExtra("student_id", studentId);
-                // startActivity(intent);
+                // Launch the CourseListActivity
+                Intent intent = new Intent(StudentDashboard.this, CourseListActivity.class);
+                intent.putExtra("student_id", studentId);
+                startActivity(intent);
             }
         });
 

@@ -39,11 +39,15 @@
             android:name=".StudentDashboard"
             android:exported="false" />
 
-        <!-- To be added in future phases:
-        <activity android:name=".CourseRegistration" />
-        <activity android:name=".CurrentCourses" />
-        <activity android:name=".CourseHistory" />
-        -->
+        <!-- Course List Activity -->
+        <activity
+            android:name=".CourseListActivity"
+            android:exported="false" />
+
+        <!-- Course Registration Activity -->
+        <activity
+            android:name=".CourseRegistrationActivity"
+            android:exported="false" />
 
     </application>
 
