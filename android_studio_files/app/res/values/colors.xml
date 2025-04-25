@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="course_available_bg">#E8F5E9</color>
     <color name="course_full_bg">#FFEBEE</color>
+    <color name="current_section_bg">#E8F5E9</color>
+    <color name="past_section_bg">#ECEFF1</color>
 </resources>

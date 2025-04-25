@@ -75,33 +75,19 @@ public class LoginActivity extends AppCompatActivity {
                                     finish();
                                 } else if (accountType.equals("instructor")) {
                                     String instructorId = jsonResponse.getString("instructor_id");
-
-                                    // Go to instructor dashboard (to be implemented)
-                                    // Intent intent = new Intent(LoginActivity.this, InstructorDashboard.class);
-                                    // intent.putExtra("instructor_id", instructorId);
-                                    // intent.putExtra("email", email);
-                                    // LoginActivity.this.startActivity(intent);
-                                    // finish();
-
-                                    // For now, show message
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                    builder.setMessage("Instructor login successful! Dashboard coming soon.")
-                                            .setPositiveButton("OK", null)
-                                            .create()
-                                            .show();
-                                } else if (accountType.equals("admin")) {
-                                    // Go to admin dashboard (to be implemented)
-                                    // Intent intent = new Intent(LoginActivity.this, AdminDashboard.class);
-                                    // intent.putExtra("email", email);
-                                    // LoginActivity.this.startActivity(intent);
-                                    // finish();
-
-                                    // For now, show message
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                    builder.setMessage("Admin login successful! Dashboard coming soon.")
-                                            .setPositiveButton("OK", null)
-                                            .create()
-                                            .show();
+                                    // Check if instructor_name exists in the response
+                                    String instructorName = "Instructor"; // Default value
+                                    if (jsonResponse.has("instructor_name")) {
+                                        instructorName = jsonResponse.getString("instructor_name");
+                                    }
+                                    
+                                    // Go to instructor dashboard
+                                    Intent intent = new Intent(LoginActivity.this, InstructorDashboardActivity.class);
+                                    intent.putExtra("instructor_id", instructorId);
+                                    intent.putExtra("instructor_name", instructorName);
+                                    intent.putExtra("email", email);
+                                    LoginActivity.this.startActivity(intent);
+                                    finish();
                                 }
                             } else {
                                 // Login failed

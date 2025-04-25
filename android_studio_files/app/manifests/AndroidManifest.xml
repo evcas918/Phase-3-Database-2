@@ -54,6 +54,26 @@
             android:name=".CourseHistoryActivity"
             android:exported="false" />
 
+        <!-- Instructor Login Activity -->
+        <activity
+            android:name=".InstructorLoginActivity"
+            android:exported="false" />
+
+        <!-- Instructor Dashboard Activity -->
+        <activity
+            android:name=".InstructorDashboardActivity"
+            android:exported="false" />
+
+        <!-- Section List Activity -->
+        <activity
+            android:name=".SectionListActivity"
+            android:exported="false" />
+
+        <!-- Section Students Activity -->
+        <activity
+            android:name=".SectionStudentsActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
