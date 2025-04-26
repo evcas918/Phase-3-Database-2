@@ -55,7 +55,6 @@ public class StudentDashboard extends AppCompatActivity {
         tvStudentId = findViewById(R.id.tvStudentId);
         tvDepartment = findViewById(R.id.tvDepartment);
         tvCredits = findViewById(R.id.tvCredits);
-        btnViewCourses = findViewById(R.id.btnViewCourses);
         btnRegisterCourses = findViewById(R.id.btnRegisterCourses);
         btnViewHistory = findViewById(R.id.btnViewHistory);
 
@@ -72,20 +71,6 @@ public class StudentDashboard extends AppCompatActivity {
 
         // Fetch student details
         fetchStudentDetails();
-
-        // Set up button click listeners
-        btnViewCourses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // For now, just show a toast
-                Toast.makeText(StudentDashboard.this, "View Courses feature coming soon", Toast.LENGTH_SHORT).show();
-
-                // TODO: Implement this in a future iteration
-                // Intent intent = new Intent(StudentDashboard.this, CurrentCourses.class);
-                // intent.putExtra("student_id", studentId);
-                // startActivity(intent);
-            }
-        });
 
         btnRegisterCourses.setOnClickListener(new View.OnClickListener() {
             @Override

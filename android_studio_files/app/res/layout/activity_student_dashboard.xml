@@ -105,13 +105,6 @@
                     android:layout_marginBottom="16dp"/>
 
                 <Button
-                    android:id="@+id/btnViewCourses"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="View Current Courses"
-                    android:layout_marginBottom="8dp"/>
-
-                <Button
                     android:id="@+id/btnRegisterCourses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
