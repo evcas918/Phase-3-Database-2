@@ -74,6 +74,16 @@
             android:name=".SectionStudentsActivity"
             android:exported="false" />
 
+        <!-- Todo List Activity -->
+        <activity
+            android:name=".TodoListActivity"
+            android:exported="false" />
+
+        <!-- Course Events Activity -->
+        <activity
+            android:name=".CourseEventsActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

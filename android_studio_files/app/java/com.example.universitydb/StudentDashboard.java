@@ -35,6 +35,7 @@ public class StudentDashboard extends AppCompatActivity {
     private Button btnViewCourses;
     private Button btnRegisterCourses;
     private Button btnViewHistory;
+    private Button btnViewTodos;
 
     private String studentId;
     private String email;
@@ -57,6 +58,7 @@ public class StudentDashboard extends AppCompatActivity {
         tvCredits = findViewById(R.id.tvCredits);
         btnRegisterCourses = findViewById(R.id.btnRegisterCourses);
         btnViewHistory = findViewById(R.id.btnViewHistory);
+        btnViewTodos = findViewById(R.id.btnViewTodos);
 
         // Initialize request queue
         requestQueue = Volley.newRequestQueue(this);
@@ -87,6 +89,16 @@ public class StudentDashboard extends AppCompatActivity {
             public void onClick(View v) {
                 // Launch CourseHistoryActivity
                 Intent intent = new Intent(StudentDashboard.this, CourseHistoryActivity.class);
+                intent.putExtra("student_id", studentId);
+                startActivity(intent);
+            }
+        });
+
+        btnViewTodos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launch TodoListActivity
+                Intent intent = new Intent(StudentDashboard.this, TodoListActivity.class);
                 intent.putExtra("student_id", studentId);
                 startActivity(intent);
             }

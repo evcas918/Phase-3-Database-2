@@ -37,4 +37,5 @@
     <string name="register_courses">Register for Courses</string>
     <string name="view_history">View Course History</string>
     <string name="logout">Logout</string>
+    <string name="add_todo">Add To-Do</string>
 </resources>
